@@ -28,7 +28,7 @@ function Person() {
     setName(event.target.age.value);
     setName(event.target.gender.value);
 
-    const url = "http://localhost:3001/person";
+    const url = process.env.REACT_APP_HEROKO;
 
     const firstData = {
       name: event.target.name.value,
@@ -36,7 +36,7 @@ function Person() {
       gender: event.target.gender.value,
     };
 
-    const calls = await axios.post(url, { age }).then((res) => {
+    const calls = await axios.post(`${url}/person`, { age }).then((res) => {
       setageInc(res.data);
     });
   };
