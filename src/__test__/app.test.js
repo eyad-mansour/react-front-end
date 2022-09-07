@@ -6,19 +6,26 @@ import Person from "../components/Person";
 
 test("load and display name", async () => {
   render(<Person />);
-  const name = await waitFor(() => screen.findByTestId("name-input"));
-  expect(name).toHaveTextContent("eyad");
+  const nameOutput = screen.getByTestId("name-output");
+  const nameInput = screen.getByTestId("name-input");
+  fireEvent.change(nameInput, { target: { value: "eyad" } });
+  expect(nameOutput).toHaveTextContent("eyad");
 });
 
 test("load and display age", async () => {
   render(<Person />);
-  const age = await waitFor(() => screen.findByTestId("age-input"));
-  expect(age).toHaveTextContent("25");
+  const ageOutput = screen.getByTestId("age-output");
+  const ageInput = screen.getByTestId("age-input");
+  fireEvent.change(ageInput, { target: { value: "25" } });
+  expect(ageOutput).toHaveTextContent("25");
 });
+
 test("load and dispaly the gender", async () => {
   render(<Person />);
-  const gender = await waitFor(() => screen.findByTestId("gender-input"));
-  expect(gender).toHaveTextContent("male");
+  const genderOutput = screen.getByTestId("gender-output");
+  const genderInput = screen.getByTestId("gender-input");
+  fireEvent.change(genderInput, { target: { value: "male" } });
+  expect(genderOutput).toHaveTextContent("male");
 });
 
 // test("can change the input", async () => {

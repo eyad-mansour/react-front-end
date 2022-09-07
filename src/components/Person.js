@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 
 function Person() {
-  const [name, setName] = useState("eyad");
-  const [age, setAge] = useState(25);
-  const [gender, setGender] = useState("male");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [ageInc, setageInc] = useState("");
 
   const handleName = (event) => {
     setName(event.target.value);
@@ -23,6 +24,10 @@ function Person() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setName(event.target.name.value);
+    setName(event.target.age.value);
+    setName(event.target.gender.value);
+
     const url = "http://localhost:3001/person";
 
     const firstData = {
@@ -31,13 +36,15 @@ function Person() {
       gender: event.target.gender.value,
     };
 
-    const calls = await axios.post(url, firstData);
+    const calls = await axios.post(url, { age }).then((res) => {
+      setageInc(res.data);
+    });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <p>enter you information and the age will increase by 5</p>
-      <label>{name}</label>
+      <label data-testid="name-output">{name}</label>
       <br />
       <input
         type="text"
@@ -48,7 +55,9 @@ function Person() {
         data-testid="name-input"
       />
       <br />
-      <label>{age}</label>
+      <label data-testid="age-output">{age}</label>
+      <br />
+      <label>{ageInc}</label>
       <br />
       <input
         type="number"
@@ -59,7 +68,7 @@ function Person() {
         data-testid="age-input"
       />
       <br />
-      <label>{gender}</label>
+      <label data-testid="gender-output">{gender}</label>
       <br />
       <input
         type="text"
